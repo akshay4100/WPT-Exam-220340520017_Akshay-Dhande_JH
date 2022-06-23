@@ -1,0 +1,103 @@
+<html>
+
+
+	<script src="jquery-3.5.1.min.js"></script>
+	<script>//our scrip will come here 
+	
+	
+	$(()=>{
+	
+	console.log("no more sins");
+	$("#bookid").blur(()=>
+		{ 
+			console.log("blur event created");
+			let ip={
+				bookid: $("#bookid").val()
+			};
+
+			let parametertofunction =
+			{
+					data:ip,
+					type: "get",
+                    dataType: "json",
+                    url: "http://localhost:8081/showstatus",
+                  
+                    success:(outputdata)=>{
+						console.log("Data given by server"+outputdata);
+						$("#bookname").val(outputdata.bname);
+						$("#bookprice").val(outputdata.price);
+						$("#msg").html(outputdata.msg);
+
+					},
+					error:(outputdata)=>{
+						$("#msg").http(outputdata.msg);
+
+					}
+			};
+			console.log("is fn working or not");
+			$.ajax(parametertofunction);
+			
+		});
+
+
+
+		$("#updatebtn").click(()=>
+		{ 
+			console.log("click event created");
+			let ip={
+				bookid: $("#bookid").val(),
+				bookname: $("#bookname").val(),
+				price: $("#bookprice").val()
+				
+			};
+
+			let parametertofunction =
+			{
+					data:ip,
+					type: "get",
+                    dataType: "json",
+                    url: "http://localhost:8081/updateInfo",
+                  
+                    success:(outputdata)=>{
+						console.log("Data given by server"+outputdata);
+					
+							$("#msg").html(outputdata.msg);
+
+					
+						
+
+					},
+					error:(outputdata)=>{
+						$("#msg").http(outputdata.msg);
+
+					}
+			};
+			console.log("is fn working or not");
+			$.ajax(parametertofunction);
+			
+		});
+		
+	});
+	
+	
+	</script>
+	
+
+<body>
+
+<input type="text" id="bookid" placeholder="Book ID">
+<span id="msg">Message</span>
+<br>
+<input type="text" id="bookname" placeholder="Book Name">
+<br>
+<input type="text"  id="bookprice" placeholder="Book Price">
+<br><br>
+
+<input type="button" id="updatebtn" value="Update Book">
+
+
+</body>
+
+
+
+</html>
